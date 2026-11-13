@@ -2,7 +2,7 @@ name: Publish engineering visualizations
 on:
   push:
     branches: [main]
-    paths: ['Projects/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'assets/**', 'scripts/**', 'Projects/**', '.github/workflows/**', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', '.gitattributes']
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
+    if: github.repository == 'CZL-Homelab/Visualization-of-Science-and-Engineering'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -25,19 +26,43 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify shared theme and entrance scripts
+        working-directory: .
+        run: |
+          node --check assets/theme.js
+          node --check assets/entry.js
+          node scripts/check-theme.cjs
       - name: Build and verify Motor Lab
         working-directory: Projects/motor-lab
         run: |
           python build.py
-          node --check src/app.js
-          node --check src/director.js
+          for script in src/*.js; do node --check "$script"; done
           node tests/check-model.cjs
+      - name: Build and verify Stock Market Lab
+        working-directory: Projects/stock-market-lab
+        run: |
+          python build.py
+          for script in src/*.js src/modules/*.js; do node --check "$script"; done
+          node tests/check-finance.cjs
+          node tests/check-build.cjs
+      - name: Build and verify Desalination Lab
+        working-directory: Projects/desalination-lab
+        run: |
+          python build.py
+          for script in src/*.js src/modules/*.js; do node --check "$script"; done
+          node tests/check-physics.cjs
+          node tests/check-scenes.cjs
+          node tests/check-build.cjs
+      - name: Build and verify Fusion Lab
+        working-directory: Projects/fusion-lab
+        run: |
+          python build.py
+          for script in src/*.js; do node --check "$script"; done
+          node tests/check-physics.cjs
+          node tests/check-build.cjs
       - name: Prepare static pages
         run: |
-          mkdir -p _site/motor-lab
-          cp Projects/motor-lab/index.html _site/motor-lab/index.html
-          printf '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./motor-lab/"><a href="./motor-lab/">Motor Lab</a>' > _site/index.html
-          touch _site/.nojekyll
+          python scripts/check_site.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,7 +1,9 @@
 # Motor Lab · v3.1 自动演示与同步对比
 
-工程根目录：`F:\ProjectA\Visualization-of-Science-and-Engineering\Projects\motor-lab`。
-此处是后续唯一开发目录，使用父目录 Git 仓库管理。
+主仓库：[CZL-Homelab/Visualization-of-Science-and-Engineering](https://github.com/CZL-Homelab/Visualization-of-Science-and-Engineering)。
+正式网站：[Motor Lab](https://czl-homelab.github.io/Visualization-of-Science-and-Engineering/motor-lab/)。
+
+源码位于仓库的 `Projects/motor-lab/`。可克隆到任意本地路径。协作请先读根目录 [贡献指南](../../CONTRIBUTING.md) 和本目录 [AGENTS.md](AGENTS.md)。
 
 ## v3.1
 
@@ -10,13 +12,13 @@
 - PMSM 三相按固定 A/B/C 颜色，以明暗表示电流绝对值，符号和亮点表示方向；桥图明暗不表示瞬时 PWM 开关状态。
 - 第 3/4/5 类的原理小图具有动态电流亮点、场轴/转子标记及支路动画。
 - 四组并排双三维对比，每组六幕：结构、电流、磁场、转子、负载、能量链。
-- 科学仪器主题的入场环形动画；遵循减少动态效果偏好。
+- 公共电机转子入场动效，支持跳过/回放；遵循减少动态效果偏好。
 - `src/director.js` 管理自动导演、字幕与双模型对比。
 
 ## Git 与发布
 
-从仓库根目录提交并推送 main 后，`.github/workflows/pages.yml` 自动重新生成离线页、校验物理关系并发布 GitHub Pages。
-发布路径：`/Visualization-of-Science-and-Engineering/motor-lab/`。
+PR 合并到组织仓库 main（或在明确授权下推送 main）后，`.github/workflows/pages.yml` 自动重新生成离线页、校验物理关系并发布 GitHub Pages。
+发布地址：`https://czl-homelab.github.io/Visualization-of-Science-and-Engineering/motor-lab/`。
 构建：`python build.py`；检查：`node tests/check-model.cjs`。
 所有运行依赖仍内嵌在 index.html 中，三维模型与课程可离线使用。
 
@@ -73,6 +75,12 @@
 - 切换步骤会恢复该步骤的默认展示状态；切换电机从第 1 步开始。
 - 语音默认关闭。没有中文语音包时显示文字提示并继续文字课程。
 
+## 主题与项目导航
+
+- 右上角按钮在深色与浅色之间切换；首次访问跟随系统 `prefers-color-scheme`，选择会写入 `localStorage` 的共享键 `czl-lab-theme`，并同步 `meta[name="theme-color"]`。两套主题都内联在 `index.html` 中，离线可用，不请求远程字体或样式。
+- 顶栏左侧的 `Lab Projects` 返回项目目录；页脚前的“换一个实验室”目录列出全部实验室、标记当前页，并提供返回目录的链接；滚动后右下角有“↑ 顶部”。链接使用相对路径，Pages 子路径与 `_site` 的本地 `file://` 预览可解析；把单个文件复制到别处时，目录链接需要保持同样的站点结构。
+- 主题切换会通知三维引擎调整网格与坐标轴透明度；浅色为暖纸色舞台，深色维持石墨舞台。两种主题下都应检查标签、网格、焦点环与窄屏布局。
+
 ## 教学边界
 
 - 这是精细的原理模型，仍不是制造 CAD、有限元计算或拆装维修规程。
@@ -114,3 +122,51 @@
   https://www.nidec.com/en/products/small-precision-motors/contents/technology/motor/basic/00013/
 
 2026-10-29
+
+## English — Motor Lab v3.1
+
+Canonical repository: [CZL-Homelab/Visualization-of-Science-and-Engineering](https://github.com/CZL-Homelab/Visualization-of-Science-and-Engineering). [Open Motor Lab](https://czl-homelab.github.io/Visualization-of-Science-and-Engineering/motor-lab/) or return to the [project directory](https://czl-homelab.github.io/Visualization-of-Science-and-Engineering/). Source is under Projects/motor-lab; no maintainer-specific filesystem path is required. Read the root contribution guide and local AGENTS.md.
+
+### Run and explore
+
+Open index.html in a modern WebGL-capable browser, or run python -m http.server 8766 --bind 127.0.0.1 in this directory. All model code, styles and the shared SVG identity are embedded; no account, server, npm installation or network is needed for the demonstration itself. External reference links require a connection. Optional speech depends on browser/OS Chinese voice availability and may require networking.
+
+Each of the six motors starts with a running showcase, then automatically enters an eight-scene tour after 12 seconds and proceeds to other motors. Tours coordinate motion, decomposition, camera, emphasis and in-scene captions. Choose any scene, pause, or restart from the beginning. Speech is off by default. Reduced-motion preferences suppress automatic movement.
+
+Click a model part or its index to read its role; isolate it for closer inspection. Use assembly, cutaway, exploded and X-ray modes or the explosion slider. Drag or use arrow keys to rotate the camera; scroll/pinch to zoom. Fit view restores framing. Expand the lab and press Escape to exit. Space toggles motor motion unless a form/control has focus. Pause before stepping 60 electrical degrees to compare currents, field direction, diagrams and waveforms. Pausing the tour preserves current motor motion; motor pause/step ends automatic scene advancement. Changing scenes restores that scene's defaults.
+
+### Content and identity
+
+The models include ribs, covers, bolts, laminations, teeth, copper turns, insulation, bearings, shaft/keyway, permanent magnets, a 24-bar cage with shorting rings, brush holders/springs and a split commutator, capacitor branches and closed shading rings. Materials, lighting and reflections improve spatial readability. Phase particles, field vectors and force directions remain explanatory markers.
+
+BLDC covers six-step commutation, two conducting phases and one floating phase. Brushed DC covers stationary magnets/brushes, a rotating armature/commutator and current reversal. PMSM covers smooth three-phase fields, synchronous speed and magnetic-axis angle; stable phase colors darken/lighten with absolute current. Three-phase induction covers cage closure, induced current and slip. Capacitor-run motors cover spatially separated windings, phase-shifted currents and elliptical fields. Shaded-pole motors cover local flux lag in the shaded region.
+
+Four comparison pairs provide six scenes each: BLDC/PMSM, synchronous/induction, capacitor-run/shaded-pole, and brushed/brushless. They compare structure, current paths, fields, rotors, load and energy chains. The phase-diagram brightness is not instantaneous PWM gating. Original articles, taxonomy, energy-loss arithmetic, fan similarity laws, FAQs, quizzes and manufacturer references remain available.
+
+### Theme and lab navigation
+
+The header button switches between dark and light. First visit follows `prefers-color-scheme`; an explicit choice is stored under the shared `czl-lab-theme` key and mirrored to `meta[name="theme-color"]`. Both palettes are inlined in index.html, so the file stays offline and requests no remote fonts or styles.
+
+`Lab Projects` at the top-left returns to the catalog. The "Lab projects" directory above the footer lists every lab, marks the current page and links back to the catalog. This lab shows a floating “top” button after 600px of scrolling, hidden when the page is short. Relative paths keep Pages subpaths and local file:// previews working. The theme switch also updates grid and axis opacity in the 3D engine; light mode uses a warm paper stage, dark mode keeps graphite. Check labels, grids, focus rings and narrow layouts in both themes.
+
+### Model boundaries
+
+These are educational procedural geometries, not manufacturing CAD, finite-element results or repair instructions. Dimensions, gaps and turns are simplified around a two-pole internal-rotor arrangement. Exploding an embedded cage out of its core is an explanatory separation, not a real disassembly operation. Animation is heavily slowed relative to indicated rpm; particles are not electron drift speeds and brightness is not measured field strength.
+
+Motion uses simplified steady-state operating points rather than startup inertia, stall, saturation, loss of synchronism, PWM transients or current loops. BLDC follows a prescribed smooth response; PMSM uses a simplified magnetic-axis angle rather than a full FOC/dq solution. Induction slip varies linearly with load for teaching. Capacitor-run examples assume 70-degree phase separation and amplitude ratio 0.8; actual values depend on the design and operating point. Shaded-pole fields show local timing rather than an ideal circular three-phase field. The single-coil/two-segment brushed model does not solve neutral-plane transients or dead-point starting. Bearing balls illustrate structure, not contact kinematics. Drive-board placement is illustrative. The efficiency ledger uses assumed arithmetic allocations and predicts neither measured efficiency nor temperature. Fan blades do not automatically apply an aerodynamic load curve.
+
+### Maintain and publish
+
+Edit src/ and run python build.py. Run node tests/check-model.cjs and the syntax commands in AGENTS.md; commit the generated index.html. No npm installation is needed. core.js handles the inherited lessons and operating points; courses.js contains scene content; engine.js builds the models; app.js controls interaction and diagrams; director.js directs tours and comparisons. Shared identity is embedded from ../../assets/icon.svg. vendor/three.min.js is Three.js 0.160.1 under the preserved MIT license. Historical v2 files under work/ are backups.
+
+Merging to the organization repository's main triggers Pages validation and publishing. Source, build and route guidance is in the root README. Manufacturer references above include Microchip BLDC commutation, Oriental Motor induction/PSC structure, and Nidec capacitor-run and DC back-EMF explanations. Their links are shared by both language versions.
+
+## 入场与主题特性 / Entrance and theme features
+
+进入本 Lab 时显示简短的电机转子入场动效，约 1.6 秒自动结束。可立即跳过，顶栏可回放；鼠标/键盘操作或页面隐藏会清理入场，锚点链接直接进入目标内容。系统“减少动态效果”会跳过入场并禁用回放。共享 Logo、主题及动效在构建时内嵌，保持离线使用；下载后重开不重复生成按钮。
+
+默认跟随系统浅色/暗黑偏好，手动选择记入 `czl-lab-theme`；没有手动覆盖时跟随系统实时变化。同源页面同步主题，页脚“主题：跟随系统”恢复自动模式。不是按本地时钟强制切换。公共维护约定见 [根 AGENTS](../../AGENTS.md)，实现入口见 [资源说明](../../assets/README.md)。
+
+The short rotor entrance ends automatically in about 1.6 seconds. Skip immediately or replay from the header; pointer/keyboard interaction or hiding the page clears it, and deep links open directly. Reduced motion bypasses the entrance and disables replay. Logo/theme/entrance assets are embedded offline at build time; reopening a downloaded snapshot does not duplicate controls.
+
+Theme follows the system's light/dark setting until a manual choice is saved under czl-lab-theme. Unoverridden pages follow live system changes, same-origin pages synchronize, and the footer system-theme button restores automatic mode. There is no forced day/night clock rule. See root AGENTS and asset guidance linked above for shared maintenance.

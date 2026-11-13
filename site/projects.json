@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "motor-lab",
+    "title": "Motor Lab · 电机原理实验室",
+    "category": "电气工程 / Electrical engineering",
+    "description": "从零件到磁场，从换相到转差。拆开六类电机，用分步动画和双模型对比，理解它们为什么会转。",
+    "english": "Explore six motor types through 3D anatomy, guided animation and synchronized comparisons.",
+    "tags": [
+      "交互 3D / Interactive 3D",
+      "离线可用 / Offline",
+      "自动讲解 / Guided tours"
+    ],
+    "metrics": "6 类电机 · 48 幕讲解 · 24 幕对比",
+    "preview": "assets/motor-preview.svg",
+    "previewAlt": "电机横截面示意 / Illustrated motor cross-section"
+  },
+  {
+    "slug": "stock-market-lab",
+    "title": "Stock Market Lab · 股票市场原理实验室",
+    "category": "金融市场 / Financial markets",
+    "description": "从一根 K 线到订单簿、IPO 与杠杆：亲手调参数、看资金流，理解价格如何形成、钱到底流向哪里。",
+    "english": "Ten interactive labs on candlesticks, order books, IPOs, valuation and leverage.",
+    "tags": [
+      "交互图表 / Interactive charts",
+      "离线可用 / Offline",
+      "自动讲解 / Guided tours"
+    ],
+    "metrics": "10 个模块 · 60+ 幕讲解 · 10 组同步对比",
+    "preview": "assets/stock-preview.svg",
+    "previewAlt": "股票 K 线、均线与订单簿示意图 / Candlestick, moving averages and order book illustration"
+  },
+  {
+    "slug": "desalination-lab",
+    "title": "海水淡化原理实验室 · Desalination Lab",
+    "category": "给排水工程 / Water engineering",
+    "description": "从 35 g/L 的海水出发：亲手调渗透压、回收率与截留率，看质量守恒、闪蒸瀑布与整厂物料平衡如何配平。",
+    "english": "Seven interactive labs on osmosis, reverse osmosis, flash distillation, membranes and the whole plant balance.",
+    "tags": [
+      "交互 3D / Interactive 3D",
+      "离线可用 / Offline",
+      "自动讲解 / Guided tours"
+    ],
+    "metrics": "7 个模块 · 25 幕讲解 · 3 个 WebGL 3D 视图 · 23 项物理不变量测试",
+    "preview": "assets/desal-preview.svg",
+    "previewAlt": "反渗透膜、浓水与产物流及能耗对比示意图 / RO membrane streams, osmotic gauge and energy comparison bars"
+  },
+  {
+    "slug": "fusion-lab",
+    "title": "核聚变反应堆实验室 · Fusion Lab",
+    "category": "核工程 / Nuclear engineering",
+    "description": "拆开 ITER：从氘氚反应、磁约束与一次放电，到氚燃料循环和聚变电站功率账本。",
+    "english": "Explore fusion reactions, ITER anatomy, magnetic confinement, tritium inventories and plant power balances.",
+    "tags": [
+      "交互 3D / Interactive 3D",
+      "离线可用 / Offline",
+      "自动讲解 / Guided tours"
+    ],
+    "metrics": "7 章 · 41 幕讲解 · 可调物理仪器",
+    "preview": "assets/fusion-preview.svg",
+    "previewAlt": "托卡马克磁体、等离子体与热电转换示意 / Tokamak magnets, plasma and thermal power cycle"
+  }
+]
